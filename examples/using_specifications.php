@@ -5,7 +5,7 @@ use Entity\Doctrine\Player;
 list($entityManager, $rulerz) = require __DIR__ . '/bootstrap/bootstrap_doctrine.php';
 
 // 1. Write a specification
-$spec = (new SampleSpecs\FemalePlayer())->andX(new SampleSpecs\MinScore(3000)); // female players having at least 3000 points
+$spec = (new SampleSpecs\FemalePlayer())->andX(new SampleSpecs\AdminGroup()); // female players having at least 3000 points
 
 // 2. Define a few targets to filter
 
@@ -13,7 +13,9 @@ $spec = (new SampleSpecs\FemalePlayer())->andX(new SampleSpecs\MinScore(3000)); 
 $playersQb = $entityManager
     ->createQueryBuilder()
     ->select('p')
-    ->from('Entity\Doctrine\Player', 'p');
+    ->from('Entity\Doctrine\Player', 'p')
+    ->leftJoin('p.club', 'club'); // This works
+    //->leftJoin('p.club', 'club_1'); // This doesn't work
 
 // or an array of arrays
 $playersArr = [

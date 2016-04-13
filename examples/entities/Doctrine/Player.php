@@ -38,7 +38,7 @@ class Player
      * @ManyToOne(targetEntity="Group", inversedBy="players")
      * @JoinColumn(name="group_id", referencedColumnName="id")
      */
-    public $group;
+    public $club;
 
     /**
      * @Embedded(class = "Address")
